@@ -1,0 +1,580 @@
+@import "tailwindcss";
+
+/* ─── Custom Font Faces (original) ─── */
+@font-face { font-family: chan1; src: url(./assets/file1.woff2); font-display: swap; }
+@font-face { font-family: chan2; src: url(./assets/file2.woff2); font-display: swap; }
+@font-face { font-family: chan3; src: url(./assets/file3.woff2); font-display: swap; }
+@font-face { font-family: chan4; src: url(./assets/file4.woff2); font-display: swap; }
+@font-face { font-family: chan5; src: url(./assets/file5.woff2); font-display: swap; }
+@font-face { font-family: chan6; src: url(./assets/file6.woff2); font-display: swap; }
+@font-face { font-family: chan7; src: url(./assets/file7.woff2); font-display: swap; }
+@font-face { font-family: chan8; src: url(./assets/file8.woff2); font-display: swap; }
+@font-face { font-family: chan9; src: url(./assets/file9.woff2); font-display: swap; }
+@font-face { font-family: chan10; src: url(./assets/file10.woff2); font-display: swap; }
+
+/* ─── OriginTech Custom Font ─── */
+@font-face {
+  font-family: 'OriginTech';
+  src: url(./assets/OriginTech.otf) format('opentype'),
+       url(./assets/OriginTech.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Universa Custom Font ─── */
+@font-face {
+  font-family: 'Universa';
+  src: url(./assets/Universa.otf) format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UniversaNew';
+  src: url(./assets/fonts/universa/UniversaDemo-j93MM.otf) format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Global Base Styles ─── */
+:root {
+  /* Fluid Typography Variables (320px → 1920px+) */
+  --font-size-h1: clamp(2rem, 5vw + 0.5rem, 5rem);
+  --font-size-h2: clamp(1.75rem, 4vw + 0.5rem, 3.75rem);
+  --font-size-h3: clamp(1.35rem, 3vw + 0.4rem, 2.75rem);
+  --font-size-subheading: clamp(1rem, 2vw + 0.3rem, 1.6rem);
+  --font-size-body: clamp(0.875rem, 1.2vw + 0.25rem, 1.2rem);
+  --font-size-small: clamp(0.75rem, 0.9vw + 0.2rem, 1rem);
+  
+  /* Line Heights */
+  --line-height-heading: 1.15;
+  --line-height-body: 1.6;
+
+  /* Responsive Spacing Scale */
+  --section-pad-x: clamp(1rem, 4vw, 4rem);
+  --section-pad-y: clamp(2rem, 6vh, 5rem);
+
+  /* Theme Variables */
+  --bg-color: #000;
+  --text-color: rgba(255, 255, 255, 0.7);
+  --heading-color: #ffffff;
+  --scrollbar-track: #000;
+  --scrollbar-thumb: #333;
+  --nav-bg: #ffffff;
+  --nav-text: #000000;
+  --nav-line: #000000;
+}
+
+:root.light {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --heading-color: #000000;
+  --scrollbar-track: #f0f0f0;
+  --scrollbar-thumb: #ccc;
+  --nav-bg: #000000;
+  --nav-text: #ffffff;
+  --nav-line: #ffffff;
+}
+
+/* ─── Global Typography Classes ─── */
+.text-fluid-h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.text-fluid-h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.text-fluid-h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.text-fluid-subheading {
+  font-size: var(--font-size-subheading);
+  line-height: var(--line-height-body);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.text-fluid-body {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.text-fluid-small {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-body);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Prevent font size inflation on mobile */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  /* Subtle reading refinement */
+  letter-spacing: 0.2px;
+  /* Prevent horizontal overflow at the body level */
+  max-width: 100vw;
+  /* Prevent pull-to-refresh interference on mobile */
+  overscroll-behavior-y: contain;
+  /* Safe area padding for notched devices (iPhone X+, etc.) */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ─── Global Typography Defaults ─── */
+#page3, #page4, #contact {
+  font-family: 'Universa', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'OriginTech', 'Poppins', sans-serif;
+  color: var(--heading-color);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 0.2em;
+  letter-spacing: 0.3px; /* Subtle refinement */
+  /* Prevent text from blowing out containers */
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+p, li, span, a {
+  color: var(--text-color);
+}
+
+strong, b {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+/* ─── Touch-Friendly Interactive Elements ─── */
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure minimum touch target size */
+button:not(.tentacle-close):not(.dpreview__close):not(.pm-close) {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ─── Global Image / Media Responsiveness ─── */
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Override Vite default #root styles */
+#root {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  overflow-x: hidden;
+  /* Ultra-wide containment: prevent layout from stretching beyond 3840px */
+  max-width: 100%;
+}
+
+/* ─── Focus Visible (Accessibility) ─── */
+:focus-visible {
+  outline: 2px solid var(--heading-color);
+  outline-offset: 2px;
+}
+
+/* Prevent layout shift from lazy-loaded images */
+img {
+  content-visibility: auto;
+}
+
+/* ─── Prevent text overflow everywhere ─── */
+p, h1, h2, h3, h4, h5, h6, span, a, li, label, button {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ─── Text Selection ─── */
+::selection {
+  background: #fff;
+  color: #000;
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--heading-color); }
+
+/* ─── Page 2 (preserved) ─── */
+#section2 {
+  position: relative;
+  perspective: 3000px;
+}
+
+#section2 h1 {
+  font-family: chan5 !important;
+  font-weight: normal !important;
+  line-height: 0.9 !important;
+  margin: 0 !important;
+  text-shadow: none !important;
+}
+
+.rotateText {
+  transform-origin: 100% 70%;
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ═══════════════════════════════════════════ */
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SMOOTH LAYOUT TRANSITION UTILITY
+   ═══════════════════════════════════════════ */
+.layout-transition {
+  transition: padding 0.3s ease, margin 0.3s ease, gap 0.3s ease;
+}
+
+/* ─── Shared Component Animations ─── */
+@keyframes sig-particle-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translate(8px, -12px) scale(1.5);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(-5px, 6px) scale(1);
+    opacity: 0.08;
+  }
+  75% {
+    transform: translate(10px, 4px) scale(1.3);
+    opacity: 0.2;
+  }
+}
+
+@keyframes rotateRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fs-float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.1; }
+  50% { transform: translateY(-20px) translateX(10px); opacity: 0.3; }
+}
+
+@keyframes tentacle-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes fallback-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes fallback-glow {
+  0%, 100% { opacity: 0.3; text-shadow: none; }
+  50% { opacity: 1; text-shadow: 0 0 12px rgba(255, 255, 255, 0.25); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ═══════════════════════════════════════════
+   PREMIUM SMOOTH SCROLL & ANIMATION SYSTEM
+   ═══════════════════════════════════════════ */
+
+/* Lenis Recommended Styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Performance Optimization Utilities */
+[data-animate], 
+[data-speed], 
+[data-clip], 
+[data-stagger] > * {
+  will-change: transform, opacity, filter, clip-path;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Mobile Animation Adjustments */
+@media (max-width: 768px) {
+  [data-speed] {
+    transform: none !important; /* Reduce heavy parallax on mobile */
+  }
+  
+  [data-animate] {
+    filter: none !important; /* Reduce blur processing on mobile */
+  }
+  
+  /* Reduce backdrop-blur on mobile for performance */
+  .backdrop-blur-xl,
+  .backdrop-blur-3xl {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+}
+
+/* Landscape phone adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --section-pad-y: 1rem;
+  }
+  
+  #page1 {
+    padding-top: 2rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  /* Reduce skill orbit on landscape */
+  #skills {
+    min-height: auto !important;
+  }
+}
+
+/* Tablet landscape adjustments */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  :root {
+    --section-pad-y: 2rem;
+  }
+}
+
+/* Ultra-wide monitors (2K+) */
+@media (min-width: 2560px) {
+  :root {
+    --font-size-h1: clamp(3.5rem, 3vw, 6rem);
+    --font-size-h2: clamp(2.5rem, 2.5vw, 4.5rem);
+    --font-size-body: clamp(1.1rem, 0.8vw, 1.4rem);
+  }
+}
+
+/* 4K displays */
+@media (min-width: 3840px) {
+  :root {
+    --font-size-h1: clamp(4rem, 2.5vw, 7rem);
+    --font-size-h2: clamp(3rem, 2vw, 5rem);
+    --font-size-body: clamp(1.2rem, 0.6vw, 1.6rem);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   PREMIUM CURSOR HOVER EFFECTS & DISTORTIONS
+   ═══════════════════════════════════════════ */
+
+/* Hide default cursor globally on desktop */
+@media (min-width: 769px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Cinematic text hover (Gothic distortion & magnetic pull) */
+.cursor-hover-text {
+  transition: letter-spacing 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  display: inline-block;
+}
+
+.cursor-hover-text:hover {
+  letter-spacing: 0.05em;
+  transform: scale(1.02);
+  /* Apply liquid ripple SVG filter created in CustomCursor */
+  filter: url('#text-ripple');
+  color: var(--heading-color) !important;
+  text-shadow: 0 0 15px var(--heading-color);
+  opacity: 0.9;
+}
+
+/* Cinematic Image/Card liquid hover */
+.cursor-hover-image {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+              filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cursor-hover-image:hover {
+  transform: scale(0.98);
+  /* Apply liquid warp SVG filter */
+  filter: url('#liquid-warp') brightness(0.8) contrast(1.1);
+}
+
+/* Make sure links scale up organically */
+a, button {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+a:hover, button:hover {
+  transform: scale(1.05);
+}
+
+/* ─── Futuristic Radial Menu CSS ─── */
+:root {
+  --hud-accent: #22d3ee;
+  --hud-accent-glow: rgba(34, 211, 238, 0.5);
+  --hud-bg: transparent;
+  --hud-border: transparent;
+  --hud-btn-bg: #ffffff;
+  --hud-btn-border: rgba(0, 0, 0, 0.15);
+  --hud-btn-icon: #000000;
+  --hud-btn-glow: rgba(255, 255, 255, 0.15);
+}
+
+:root.light {
+  --hud-accent: #22d3ee; /* Bright Cyan Glow works best with dimmed overlay */
+  --hud-accent-glow: rgba(34, 211, 238, 0.6);
+  --hud-bg: transparent;
+  --hud-border: transparent;
+  --hud-btn-bg: #000000;
+  --hud-btn-border: rgba(255, 255, 255, 0.2);
+  --hud-btn-icon: #ffffff;
+  --hud-btn-glow: rgba(0, 0, 0, 0.15);
+}
+
+@keyframes hud-spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hud-spin-counter-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes hud-pulse-slow {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.03); }
+}
+
+.animate-hud-spin {
+  animation: hud-spin-clockwise 25s linear infinite;
+}
+
+.animate-hud-spin-reverse {
+  animation: hud-spin-counter-clockwise 35s linear infinite;
+}
+
+.animate-hud-pulse {
+  animation: hud-pulse-slow 4s ease-in-out infinite;
+}
+
+.hud-radial-panel {
+  border-left: 1px solid var(--hud-border);
+  background-color: var(--hud-bg);
+}
+
+.light .hud-radial-panel {
+}
+
+.hud-btn {
+  background-color: var(--hud-btn-bg);
+  border: 1px solid var(--hud-btn-border);
+  box-shadow: 0 0 15px var(--hud-btn-glow);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hud-btn:hover {
+  box-shadow: 0 0 25px var(--hud-btn-glow);
+  border-color: var(--hud-btn-icon);
+}
+
+/* Prevent menu button text from changing color to heading color on hover, allowing it to blend correctly with custom cursor */
+.hud-btn span,
+.hud-btn:hover span,
+.hud-btn span.cursor-hover-text:hover,
+.hud-btn.cursor-hover-text:hover span {
+  color: var(--hud-btn-icon) !important;
+  text-shadow: none !important;
+}
+
+/* Staggered items active styling */
+.hud-nav-link {
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  color: #000000 !important;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.hud-nav-link:hover {
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.hud-nav-link.active {
+  color: #000000 !important;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+} 
+ 
