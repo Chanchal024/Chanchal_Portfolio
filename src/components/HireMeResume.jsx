@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import gsap from 'gsap';
-import { jsPDF } from 'jspdf';
 
 /**
  * HireMeResume — Premium cinematic resume showcase.
@@ -151,137 +150,6 @@ const HireMeResume = ({ isOpen, onClose, theme }) => {
     return () => window.removeEventListener('keydown', handleEsc);
   }, [isOpen, handleClose]);
 
-  // ── Generate PDF Resume ──
-  const generateResumePDF = useCallback(() => {
-    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-    const pageW = doc.internal.pageSize.getWidth();
-    const margin = 20;
-    const contentW = pageW - margin * 2;
-    let y = 20;
-
-    const addLine = () => { doc.setDrawColor(200); doc.line(margin, y, pageW - margin, y); y += 4; };
-    const checkPage = (needed = 12) => { if (y + needed > 275) { doc.addPage(); y = 20; } };
-
-    // ── Header ──
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.text('CHANCHAL MANDAL', pageW / 2, y, { align: 'center' });
-    y += 8;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.text('+91-7606940215  |  EMAIL  |  LinkedIn  |  GitHub  |  Portfolio', pageW / 2, y, { align: 'center' });
-    y += 6;
-    addLine();
-
-    // ── Summary ──
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text('SUMMARY', margin, y);
-    y += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    const summaryLines = doc.splitTextToSize(
-      'Frontend Developer crafting fast, interactive UIs with React, Tailwind CSS, GSAP, and modern JavaScript.',
-      contentW
-    );
-    doc.text(summaryLines, margin, y);
-    y += summaryLines.length * 5 + 4;
-    addLine();
-
-    // ── Technical Skills ──
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text('TECHNICAL SKILLS', margin, y);
-    y += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.text('\u2022  FrontEnd: HTML, CSS, JavaScript', margin + 2, y); y += 5;
-    doc.text('\u2022  Framework: Tailwind CSS, React, GSAP, Bootstrap', margin + 2, y); y += 6;
-    addLine();
-
-    // ── Experience ──
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text('EXPERIENCE', margin, y);
-    y += 7;
-    doc.setFontSize(11);
-    doc.text('Frontend Developer Intern \u2013 InternPe', margin, y);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.text('June 2025 \u2013 July 2025', pageW - margin, y, { align: 'right' });
-    y += 6;
-    doc.setFontSize(10);
-    const expBullets = [
-      'Worked on real-world projects using HTML, CSS, JavaScript, and React.js',
-      'Built responsive and interactive web applications',
-    ];
-    expBullets.forEach((b) => {
-      checkPage();
-      doc.text(`\u2022  ${b}`, margin + 2, y);
-      y += 5;
-    });
-    y += 2;
-    addLine();
-
-    // ── Projects ──
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text('PROJECTS', margin, y);
-    y += 7;
-
-    // Project 1
-    checkPage(35);
-    doc.setFontSize(11);
-    doc.text('Ecommerce Website \u2013 FrontEnd Development', margin, y);
-    y += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    const proj1 = [
-      'Built ABHIPSA TRADERS using React (TypeScript) and Vite',
-      'Responsive UI with Tailwind CSS, shadcn/ui, and React Router',
-      'Used React Hook Form, Zod, TanStack Query',
-      'Backend with Node.js, Express, MongoDB, JWT',
-      'Features: CRUD, analytics dashboard, customer management',
-    ];
-    proj1.forEach((b) => { checkPage(); doc.text(`\u2022  ${b}`, margin + 2, y); y += 5; });
-    y += 4;
-
-    // Project 2
-    checkPage(35);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.text('Attendance Management \u2013 FrontEnd Development', margin, y);
-    y += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    const proj2 = [
-      'Face Recognition Attendance System frontend using React',
-      'Dashboards for Admin, Teacher, Student',
-      'Webcam face capture integration',
-      'Component-based scalable architecture',
-      'Responsive UI and real-time interaction',
-    ];
-    proj2.forEach((b) => { checkPage(); doc.text(`\u2022  ${b}`, margin + 2, y); y += 5; });
-    y += 2;
-    addLine();
-
-    // ── Education ──
-    checkPage(20);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text('EDUCATION', margin, y);
-    y += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    const eduLines = doc.splitTextToSize(
-      'Motivated BCA 2nd-year student at Ravenshaw University with strong frontend development skills and passion for modern responsive web applications.',
-      contentW
-    );
-    doc.text(eduLines, margin, y);
-
-    doc.save('Chanchal_Mandal_Resume.pdf');
-  }, []);
-
   if (!isOpen) return null;
 
   return (
@@ -403,16 +271,17 @@ const HireMeResume = ({ isOpen, onClose, theme }) => {
               <div className="resume-section" style={{ opacity: 0 }}>
                 <SectionTitle fg={fg}>Summary</SectionTitle>
                 <p className={`text-${fg}/60 text-sm sm:text-base leading-relaxed font-light`}>
-                  Frontend Developer crafting fast, interactive UIs with React, Tailwind CSS, GSAP, and modern JavaScript.
+                  FrontEnd Developer crafting fast, interactive UIs with React, Tailwind CSS, GSAP, and modern JavaScript.
                 </p>
               </div>
 
               {/* ── Technical Skills ── */}
               <div className="resume-section" style={{ opacity: 0 }}>
                 <SectionTitle fg={fg}>Technical Skills</SectionTitle>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <SkillPill label="FrontEnd" value="HTML, CSS, JavaScript" fg={fg} />
-                  <SkillPill label="Framework" value="Tailwind CSS, React, GSAP, Bootstrap" fg={fg} />
+                  <SkillPill label="Framework" value="Tailwind CSS, React, Bootstrap, Locomotive js" fg={fg} />
+                  <SkillPill label="Library" value="Three.js, GSAP, Bootstrap" fg={fg} />
                 </div>
               </div>
 
@@ -428,16 +297,9 @@ const HireMeResume = ({ isOpen, onClose, theme }) => {
                   <span className={`text-${fg}/30 text-xs tracking-widest uppercase font-mono block mb-3`}>
                     June 2025 – July 2025
                   </span>
-                  <ul className={`space-y-1.5 text-${fg}/55 text-xs sm:text-sm font-light leading-relaxed`}>
-                    <li className="flex gap-2">
-                      <span className={`text-${fg}/25 mt-0.5 shrink-0`}>▸</span>
-                      Worked on real-world projects using HTML, CSS, JavaScript, and React.js
-                    </li>
-                    <li className="flex gap-2">
-                      <span className={`text-${fg}/25 mt-0.5 shrink-0`}>▸</span>
-                      Built responsive and interactive web applications
-                    </li>
-                  </ul>
+                  <p className={`text-${fg}/55 text-xs sm:text-sm font-light leading-relaxed`}>
+                    During this internship, I worked on real-world projects using HTML, CSS, JavaScript, and React.js, which helped me strengthen my development skills and gain hands-on experience in building responsive and interactive web applications.
+                  </p>
                 </div>
               </div>
 
@@ -448,25 +310,35 @@ const HireMeResume = ({ isOpen, onClose, theme }) => {
                   <ProjectBlock
                     fg={fg}
                     title="Ecommerce Website"
-                    subtitle="FrontEnd Development"
+                    subtitle="Front-End & Backend Development"
                     bullets={[
-                      'Built ABHIPSA TRADERS using React (TypeScript) and Vite',
-                      'Responsive UI with Tailwind CSS, shadcn/ui, and React Router',
-                      'Used React Hook Form, Zod, TanStack Query',
-                      'Backend with Node.js, Express, MongoDB, JWT',
-                      'Features: CRUD, analytics dashboard, customer management',
+                      'Built ABHIPSA TRADERS, a full-stack web app using React (TypeScript) and Vite for fast performance.',
+                      'Created a responsive UI with Tailwind CSS, shadcn/ui, and React Router.',
+                      'Implemented forms with React Hook Form and Zod, optimized data via TanStack Query, and developed a secure Node.js/Express + MongoDB backend with JWT by using AI assistance i have implemented the Backend part.',
+                      'Features include product CRUD, customer/feedback management, contact form, and analytics dashboard.',
                     ]}
                   />
                   <ProjectBlock
                     fg={fg}
                     title="Attendance Management"
-                    subtitle="FrontEnd Development"
+                    subtitle="Front-End Development"
                     bullets={[
-                      'Face Recognition Attendance System frontend using React',
-                      'Dashboards for Admin, Teacher, Student',
-                      'Webcam face capture integration',
-                      'Component-based scalable architecture',
-                      'Responsive UI and real-time interaction',
+                      'Developed the frontend of a Face Recognition Attendance System using React to create a fast, interactive user interface. I created this for my college attendance system.',
+                      'Designed responsive and user-friendly dashboards for Admin, Teacher, and Student roles using modern UI practices.',
+                      'Integrated webcam-based face capture interface on the client side for smooth attendance interaction.',
+                      'Implemented clean routing, component-based architecture, and state management for better performance and scalability.',
+                      'Enhanced user experience with intuitive layouts, real-time feedback, and mobile-responsive design to streamline attendance workflows.',
+                    ]}
+                  />
+                  <ProjectBlock
+                    fg={fg}
+                    title="The Creative Office"
+                    subtitle="Front-End Development"
+                    bullets={[
+                      'Developed a responsive personal portfolio to showcase projects, skills, and professional experience.',
+                      'Built a modern, interactive UI with smooth animations and optimized performance using React and Vite.',
+                      'Designed reusable components and ensured a mobile-friendly, accessible user experience.',
+                      'Integrated project showcases, contact section, and resume download functionality.',
                     ]}
                   />
                 </div>
@@ -476,14 +348,15 @@ const HireMeResume = ({ isOpen, onClose, theme }) => {
               <div className="resume-section" style={{ opacity: 0 }}>
                 <SectionTitle fg={fg}>Education</SectionTitle>
                 <p className={`text-${fg}/55 text-sm sm:text-base leading-relaxed font-light`}>
-                  Motivated BCA 2nd-year student at <span className={`text-${fg}/80 font-medium`}>Ravenshaw University</span> with strong frontend development skills and passion for modern responsive web applications.
+                  Motivated BCA 2nd-year student at <span className={`text-${fg}/80 font-medium`}>Ravenshaw University</span> with strong skills in frontend development and a passion for building modern, responsive web applications.
                 </p>
               </div>
 
               {/* ── Download Resume Button ── */}
               <div className="resume-section flex justify-center pt-2" style={{ opacity: 0 }}>
-                <button
-                  onClick={generateResumePDF}
+                <a
+                  href="/CHANCHAL_MANDAL_Resume.docx"
+                  download="CHANCHAL_MANDAL_Resume.docx"
                   className={`group relative inline-flex items-center gap-3 px-8 py-4 rounded-full
                              bg-${fg}/[0.06] border border-${fg}/[0.1]
                              hover:bg-${fg}/[0.12] hover:border-${fg}/[0.25]
@@ -499,7 +372,7 @@ const HireMeResume = ({ isOpen, onClose, theme }) => {
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
                   Download Resume
-                </button>
+                </a>
               </div>
 
               {/* ── Bottom Accent Line ── */}

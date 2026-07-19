@@ -114,64 +114,9 @@ const Page1 = ({ theme, toggleTheme, onHireMe, onMenuToggle }) => {
                     />
                 </div>
             )}
-            {/* ── Download Resume — Left Middle (Vertical) ── */}
-            <button
-              onClick={async () => {
-                const { jsPDF } = await import('jspdf');
-                const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-                const pageW = doc.internal.pageSize.getWidth();
-                const margin = 20;
-                const contentW = pageW - margin * 2;
-                let y = 20;
-                const addLine = () => { doc.setDrawColor(200); doc.line(margin, y, pageW - margin, y); y += 4; };
-                const checkPage = (needed = 12) => { if (y + needed > 275) { doc.addPage(); y = 20; } };
-
-                doc.setFont('helvetica', 'bold'); doc.setFontSize(22);
-                doc.text('CHANCHAL MANDAL', pageW / 2, y, { align: 'center' }); y += 8;
-                doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
-                doc.text('+91-7606940215  |  EMAIL  |  LinkedIn  |  GitHub  |  Portfolio', pageW / 2, y, { align: 'center' }); y += 6;
-                addLine();
-
-                doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
-                doc.text('SUMMARY', margin, y); y += 6;
-                doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
-                const sLines = doc.splitTextToSize('Frontend Developer crafting fast, interactive UIs with React, Tailwind CSS, GSAP, and modern JavaScript.', contentW);
-                doc.text(sLines, margin, y); y += sLines.length * 5 + 4; addLine();
-
-                doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
-                doc.text('TECHNICAL SKILLS', margin, y); y += 6;
-                doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
-                doc.text('\u2022  FrontEnd: HTML, CSS, JavaScript', margin + 2, y); y += 5;
-                doc.text('\u2022  Framework: Tailwind CSS, React, GSAP, Bootstrap', margin + 2, y); y += 6; addLine();
-
-                doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
-                doc.text('EXPERIENCE', margin, y); y += 7; doc.setFontSize(11);
-                doc.text('Frontend Developer Intern \u2013 InternPe', margin, y);
-                doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
-                doc.text('June 2025 \u2013 July 2025', pageW - margin, y, { align: 'right' }); y += 6;
-                doc.setFontSize(10);
-                ['Worked on real-world projects using HTML, CSS, JavaScript, and React.js', 'Built responsive and interactive web applications'].forEach(b => { checkPage(); doc.text(`\u2022  ${b}`, margin + 2, y); y += 5; });
-                y += 2; addLine();
-
-                doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
-                doc.text('PROJECTS', margin, y); y += 7;
-                checkPage(35); doc.setFontSize(11);
-                doc.text('Ecommerce Website \u2013 FrontEnd Development', margin, y); y += 6;
-                doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
-                ['Built ABHIPSA TRADERS using React (TypeScript) and Vite', 'Responsive UI with Tailwind CSS, shadcn/ui, and React Router', 'Used React Hook Form, Zod, TanStack Query', 'Backend with Node.js, Express, MongoDB, JWT', 'Features: CRUD, analytics dashboard, customer management'].forEach(b => { checkPage(); doc.text(`\u2022  ${b}`, margin + 2, y); y += 5; });
-                y += 4; checkPage(35); doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
-                doc.text('Attendance Management \u2013 FrontEnd Development', margin, y); y += 6;
-                doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
-                ['Face Recognition Attendance System frontend using React', 'Dashboards for Admin, Teacher, Student', 'Webcam face capture integration', 'Component-based scalable architecture', 'Responsive UI and real-time interaction'].forEach(b => { checkPage(); doc.text(`\u2022  ${b}`, margin + 2, y); y += 5; });
-                y += 2; addLine();
-
-                checkPage(20); doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
-                doc.text('EDUCATION', margin, y); y += 6;
-                doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
-                const eduLines = doc.splitTextToSize('Motivated BCA 2nd-year student at Ravenshaw University with strong frontend development skills and passion for modern responsive web applications.', contentW);
-                doc.text(eduLines, margin, y);
-                doc.save('Chanchal_Mandal_Resume.pdf');
-              }}
+            <a
+              href="/CHANCHAL_MANDAL_Resume.docx"
+              download="CHANCHAL_MANDAL_Resume.docx"
               className={`absolute left-0 top-1/2 -translate-y-1/2 z-[20] pointer-events-auto cursor-pointer
                          hidden sm:flex items-center justify-center
                          py-5 sm:py-6 lg:py-5 xl:py-6 min-[1440px]:py-8 2xl:py-10 px-1.5 sm:px-2 lg:px-1.5 xl:px-2 min-[1440px]:px-3 2xl:px-4
@@ -188,7 +133,7 @@ const Page1 = ({ theme, toggleTheme, onHireMe, onMenuToggle }) => {
               >
                 Download Resume
               </span>
-            </button>
+            </a>
 
             {/* ── Let's Connect — Bottom Center ── */}
             <button
