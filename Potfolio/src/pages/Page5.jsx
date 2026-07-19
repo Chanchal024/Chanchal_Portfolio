@@ -10,12 +10,22 @@ const Page5 = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate network request
-    setTimeout(() => {
+    
+    const formData = new FormData(e.target);
+    fetch("https://formsubmit.co/ajax/mandalchanchal243@gmail.com", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
       setIsSubmitting(false);
       alert('Message sent successfully!');
       e.target.reset();
-    }, 1500);
+    })
+    .catch(error => {
+      setIsSubmitting(false);
+      alert('Error sending message.');
+    });
   };
 
   return (
@@ -45,25 +55,24 @@ const Page5 = () => {
           </div>
 
           <div className="flex flex-col gap-4 2xl:gap-6">
-            <a href="mailto:hello@example.com" className="group flex items-center justify-center lg:justify-start gap-4 2xl:gap-6 text-[var(--text-color)]/80 hover:text-[var(--text-color)] transition-colors">
+            <a href="mailto:mandalchanchal243@gmail.com" className="group flex items-center justify-center lg:justify-start gap-4 2xl:gap-6 text-[var(--text-color)]/80 hover:text-[var(--text-color)] transition-colors">
               <div className="w-12 h-12 2xl:w-16 2xl:h-16 rounded-full border border-[var(--text-color)]/10 bg-[var(--text-color)]/5 flex items-center justify-center group-hover:bg-[var(--text-color)]/10 transition-colors">
                 <i className="ri-mail-line text-xl 2xl:text-2xl"></i>
               </div>
-              <span className="font-['Universa'] font-medium text-sm md:text-base 2xl:text-xl tracking-wide">hello@example.com</span>
+              <span className="font-['Universa'] font-medium text-sm md:text-base 2xl:text-xl tracking-wide">mandalchanchal243@gmail.com</span>
             </a>
 
-            <a href="#" className="group flex items-center justify-center lg:justify-start gap-4 2xl:gap-6 text-[var(--text-color)]/80 hover:text-[var(--text-color)] transition-colors">
-              <div className="w-12 h-12 2xl:w-16 2xl:h-16 rounded-full border border-[var(--text-color)]/10 bg-[var(--text-color)]/5 flex items-center justify-center group-hover:bg-[var(--text-color)]/10 transition-colors">
-                <i className="ri-map-pin-line text-xl 2xl:text-2xl"></i>
-              </div>
-              <span className="font-['Universa'] font-medium text-sm md:text-base 2xl:text-xl tracking-wide">Available Worldwide</span>
-            </a>
+
           </div>
 
           <div className="flex items-center justify-center lg:justify-start gap-4 2xl:gap-6 mt-4 2xl:mt-8">
-            {['ri-github-fill', 'ri-linkedin-fill', 'ri-twitter-x-line', 'ri-dribbble-line'].map((icon, i) => (
-              <a key={i} href="#" className="w-10 h-10 2xl:w-16 2xl:h-16 rounded-full bg-[var(--text-color)]/5 border border-[var(--text-color)]/10 flex items-center justify-center text-[var(--text-color)]/70 hover:text-[var(--text-color)] hover:bg-[var(--text-color)]/20 hover:scale-110 transition-all duration-300">
-                <i className={`${icon} text-lg 2xl:text-2xl`}></i>
+            {[
+              { icon: 'ri-github-fill', link: 'https://github.com/Chanchal024' },
+              { icon: 'ri-linkedin-fill', link: 'https://www.linkedin.com/in/mandal-chanchal' },
+              { icon: 'ri-dribbble-line', link: '#' }
+            ].map((social, i) => (
+              <a key={i} href={social.link} target={social.link !== '#' ? "_blank" : "_self"} rel={social.link !== '#' ? "noopener noreferrer" : ""} className="w-10 h-10 2xl:w-16 2xl:h-16 rounded-full bg-[var(--text-color)]/5 border border-[var(--text-color)]/10 flex items-center justify-center text-[var(--text-color)]/70 hover:text-[var(--text-color)] hover:bg-[var(--text-color)]/20 hover:scale-110 transition-all duration-300">
+                <i className={`${social.icon} text-lg 2xl:text-2xl`}></i>
               </a>
             ))}
           </div>
@@ -79,6 +88,7 @@ const Page5 = () => {
               <label className="text-xs 2xl:text-lg font-['Universa'] font-semibold text-[var(--text-color)]/50 uppercase tracking-wider pl-2 2xl:pl-3">Name</label>
               <input
                 type="text"
+                name="name"
                 required
                 placeholder="John Doe"
                 className="w-full bg-[var(--bg-color)]/40 border border-[var(--text-color)]/10 rounded-xl 2xl:rounded-2xl px-4 2xl:px-6 py-3.5 2xl:py-5 text-[var(--text-color)] font-['Universa'] text-sm 2xl:text-xl focus:outline-none focus:border-[var(--text-color)]/30 focus:bg-[var(--text-color)]/5 transition-all"
@@ -89,6 +99,7 @@ const Page5 = () => {
               <label className="text-xs 2xl:text-lg font-['Universa'] font-semibold text-[var(--text-color)]/50 uppercase tracking-wider pl-2 2xl:pl-3">Email</label>
               <input
                 type="email"
+                name="email"
                 required
                 placeholder="john@example.com"
                 className="w-full bg-[var(--bg-color)]/40 border border-[var(--text-color)]/10 rounded-xl 2xl:rounded-2xl px-4 2xl:px-6 py-3.5 2xl:py-5 text-[var(--text-color)] font-['Universa'] text-sm 2xl:text-xl focus:outline-none focus:border-[var(--text-color)]/30 focus:bg-[var(--text-color)]/5 transition-all"
@@ -98,6 +109,7 @@ const Page5 = () => {
             <div className="flex flex-col gap-1.5 2xl:gap-2">
               <label className="text-xs 2xl:text-lg font-['Universa'] font-semibold text-[var(--text-color)]/50 uppercase tracking-wider pl-2 2xl:pl-3">Message</label>
               <textarea
+                name="message"
                 required
                 placeholder="How can I help you?"
                 rows="4"

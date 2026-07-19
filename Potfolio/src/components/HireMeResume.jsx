@@ -391,9 +391,9 @@ const HireMeResume = ({ isOpen, onClose, theme }) => {
                   <span className={`text-${fg}/20`}>|</span>
                   <a href="mailto:contact@example.com" className={`hover:text-${fg}/80 transition-colors`}>EMAIL</a>
                   <span className={`text-${fg}/20`}>|</span>
-                  <a href="#" className={`hover:text-${fg}/80 transition-colors`}>LinkedIn</a>
+                  <a href="https://www.linkedin.com/in/mandal-chanchal" target="_blank" rel="noopener noreferrer" className={`hover:text-${fg}/80 transition-colors`}>LinkedIn</a>
                   <span className={`text-${fg}/20`}>|</span>
-                  <a href="#" className={`hover:text-${fg}/80 transition-colors`}>GitHub</a>
+                  <a href="https://github.com/Chanchal024" target="_blank" rel="noopener noreferrer" className={`hover:text-${fg}/80 transition-colors`}>GitHub</a>
                   <span className={`text-${fg}/20`}>|</span>
                   <a href="#" className={`hover:text-${fg}/80 transition-colors`}>Portfolio</a>
                 </div>
